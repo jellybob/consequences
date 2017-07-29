@@ -24,7 +24,7 @@ post "/" do
     </speak>
   }
 
-  text_story = %Q{One day #{person_one} and #{person_two} met #{meeting}. He said "#{phrase_one}". She responded "#{phrase_two}", and then #{outcom}.}
+  text_story = %Q{One day #{person_one} and #{person_two} met #{meeting}. He said "#{phrase_one}". She responded "#{phrase_two}", and then #{outcome}.}
 
   {
     "version": "1.0",
