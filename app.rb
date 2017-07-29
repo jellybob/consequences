@@ -2,20 +2,21 @@ require "sinatra"
 require "json"
 require "pp"
 
-MALES = File.read("male.txt").lines
-FEMALES = File.read("female.txt").lines
-MEETINGS = File.read("meetings.txt").lines
-MALE_PHRASES = File.read("male_phrase.txt").lines
-FEMALE_PHRASES = File.read("female_phrase.txt").lines
-OUTCOMES = File.read("outcomes.txt").lines
+PARTS = %w(males females meetings male_phrases female_phrases outcomes).map { |part|
+  [part.to_sym, File.read("#{part}.txt").lines]
+}.to_h
+
+def phrase(key)
+  PARTS[key].sample
+end
 
 post "/" do
-  person_one = MALES.sample
-  person_two = FEMALES.sample
-  meeting = MEETINGS.sample
-  phrase_one = MALE_PHRASES.sample
-  phrase_two = FEMALE_PHRASES.sample
-  outcome = OUTCOMES.sample
+  person_one = phrase(:males)
+  person_two = phrase(:females)
+  meeting = phrase(:meetings)
+  phrase_one = phrase(:male_phrases)
+  phrase_two = phrase(:female_phrases)
+  outcome = phrase(:outcomes)
 
   story = %Q{
     <speak>
@@ -39,24 +40,4 @@ post "/" do
       "shouldEndSession": true
     }
   }.to_json
-end
-
-def random_person(exclude = nil)
-  sample_with_exclusion(["Jim", "Bob", "Jo"], exclude)
-end
-
-def random_meeting
-  ["Foo"].sample
-end
-
-def random_phrase(exclude = nil)
-  sample_with_exclusion(["Foo", "bar"], exclude)
-end
-
-def random_outcome
-  ["Bar"].sample
-end
-
-def sample_with_exclusion(haystack, exclude = nil)
-  haystack.reject { |p| p == exclude }.sample
 end
