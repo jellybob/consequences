@@ -20,9 +20,11 @@ post "/" do
 
   story = %Q{
     <speak>
-      One day <w role="amazon:NN">#{person_one}</w> and <w role="amazon:NN">#{person_two}</w> met #{meeting}.<break strength="x-strong" />He said \"#{phrase_one}\". She responded \"#{phrase_two}\", and then #{outcome}.
+      One day <w role="amazon:NN">#{person_one}</w> and <w role="amazon:NN">#{person_two}</w> met #{meeting}.<break strength="x-strong" />He said "#{phrase_one}". She responded "#{phrase_two}", and then #{outcome}.
     </speak>
   }
+
+  text_story = %Q{One day #{person_one} and #{person_two} met #{meeting}. He said "#{phrase_one}". She responded "#{phrase_two}", and then #{outcom}.}
 
   {
     "version": "1.0",
@@ -35,7 +37,7 @@ post "/" do
       "card": {
         "type": "Simple",
         "title": "Your Story",
-        "content": story,
+        "content": text_story,
       },
       "shouldEndSession": true
     }
