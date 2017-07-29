@@ -1,5 +1,9 @@
 require "sinatra"
+require "json"
 
 post "/" do
-  "Test"
+  {
+    "speech": "Hi there",
+    "displayText": "Hi there",
+  }.to_json
 end
